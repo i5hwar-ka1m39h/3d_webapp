@@ -8,7 +8,7 @@ import Loader from "./Loader"
 
 export default function ModelView({ index, groupRef, gsapType, controlRef, setRotationState, size, item }) {
   return (
-    <View index={index} id={gsapType} className= {` w-full h-full ${index === 2} ? 'right-[-100%]' : ''`}>
+    <View index={index} id={gsapType} className= {` w-full h-full absolute ${index === 2 ? 'right-[-100%]' : ''} `}>
       {/* ambient light */}
       <ambientLight intensity={0.3}/>
       <PerspectiveCamera makeDefault position={[0,0,4]}/>

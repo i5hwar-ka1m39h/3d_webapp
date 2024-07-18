@@ -1,4 +1,4 @@
-import React,{useState,useRef} from 'react'
+import React,{useState,useRef, useEffect} from 'react'
 import ModelView from './ModelView'
 import { View } from '@react-three/drei'
 import {models, sizes} from '../constants'
@@ -7,6 +7,7 @@ import * as THREE from 'three'
 import { yellowImg } from '../utils'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
+import {aniGSAPtimeline} from '../utils/animation'
 
 
 export default function Model3D() {
@@ -28,6 +29,24 @@ export default function Model3D() {
     // rotation
     const [smallRotation, setSmallRotation] = useState(0);
     const [largeRotation, setLargeRotation] = useState(0);
+
+    const timeline = gsap.timeline()
+
+    useEffect(()=>{
+      if(size == 'large'){
+        aniGSAPtimeline(timeline, small, smallRotation, '#view1', '#view2',{
+          transform:'translateX(-100%)',
+          duration: 2
+        })
+      }
+
+      if(size == 'small'){
+        aniGSAPtimeline(timeline, large, largeRotation, '#view2', '#view1',{
+          transform:'translateX(0)',
+          duration: 2
+        })
+      }
+    },[size])
 
     useGSAP(()=>{
       gsap.to('#heading', {
